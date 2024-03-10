@@ -3,53 +3,56 @@ import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 import SubHeader from './sub-header';
 
 const industriesData = [
-    { r1 :  'Food',
-      r2 :  'Ecommerce',
-      r3 :  'Tour and Travels'
+    {
+        r1: 'Food',
+        r2: 'Ecommerce',
+        r3: 'Tour and Travels'
     },
     {
-      r1 :  'Pharmaceuticals',
-      r2 :  'Automobile',
-      r3 :  'Cryptocurrency and blockchain'
+        r1: 'Pharmaceuticals',
+        r2: 'Automobile',
+        r3: 'Cryptocurrency and blockchain'
     },
     {
-      r1 :  'Salon and Parlour',
-      r2 :  'Real Estate',
-      r3 :  'Hospitals'
+        r1: 'Salon and Parlour',
+        r2: 'Real Estate',
+        r3: 'Hospitals'
     }
 ]
 
 const servicesData = [
-    { r1 :  'Mobile App Development',
-      r2 :  'Website Design',
-      r3 :  'Web App Development'
+    {
+        r1: 'Mobile App Development',
+        r2: 'Website Design',
+        r3: 'Web App Development'
     },
     {
-      r1 :  'Industrial Automation SOftware',
-      r2 :  'Panel software',
-      r3 :  'Scada Software'
+        r1: 'Industrial Automation SOftware',
+        r2: 'Panel software',
+        r3: 'Scada Software'
     },
     {
-      r1 :  'Digital Marketing',
-      r2 :  'Graphic Design',
-      r3 :  'SEO/SMO'
+        r1: 'Digital Marketing',
+        r2: 'Graphic Design',
+        r3: 'SEO/SMO'
     }
 ]
 
 const TechData = [
-    { r1 :  'Mobile App Development',
-      r2 :  'Website Design',
-      r3 :  'Web App Development'
+    {
+        r1: 'Mobile App Development',
+        r2: 'Website Design',
+        r3: 'Web App Development'
     },
     {
-      r1 :  'Industrial Automation SOftware',
-      r2 :  'Panel software',
-      r3 :  'Scada Software'
+        r1: 'Industrial Automation SOftware',
+        r2: 'Panel software',
+        r3: 'Scada Software'
     },
     {
-      r1 :  'Digital Marketing',
-      r2 :  'Graphic Design',
-      r3 :  'SEO/SMO'
+        r1: 'Digital Marketing',
+        r2: 'Graphic Design',
+        r3: 'SEO/SMO'
     }
 ]
 
@@ -60,22 +63,28 @@ const headerData = [
         link: '#',
         SubHeaderData: {
             columnData: [
-                { 
-                    id: 1, 
-                    title: 'Overview', 
-                    link: '#', 
+                {
+                    id: 1,
+                    title: 'Overview',
+                    link: '#',
                     subType: 'block',
-                    data: 'Dashandots Technology Private Limited is a leading' 
+                    data: 'Dashandots Technology Private Limited is a leading'
                 },
-                { 
-                    id: 2, 
-                    title: 'Industries', 
-                    link: '#', 
+                {
+                    id: 2,
+                    title: 'Industries',
+                    link: '#',
                     subType: 'table',
                     data: industriesData
                 },
-                { id: 3, title: 'Services', link: '#', data: 'text 3' }
-            ]
+                {
+                    id: 3,
+                    title: 'Services',
+                    link: '#',
+                    subType: 'table',
+                    data: servicesData
+                }
+            ],
         }
     },
     {
@@ -110,6 +119,7 @@ function Header() {
         }
         setTimeout(() => {
             if (!isSubHeaderHovered && hoveredItem === 0) {
+                setDataToShow(null);
                 setIsSubHeaderVisible(false);
             } else {
                 setIsSubHeaderVisible(true);
@@ -157,7 +167,7 @@ function Header() {
             {isSubHeaderVisible && (
                 <div className='w-100 absolute z-100 top-0 left-0'
                     style={{
-                        height: '200px',
+                        height: '300px',
                         backgroundColor: "#1E2222",
                     }}
                     onMouseEnter={() => {
@@ -190,9 +200,35 @@ function Header() {
                                 ))}
                             </Col>
 
-                            
+                            {currentSubHeaderData && currentSubHeaderData.columnData && currentSubHeaderData.columnData.map((data, key) => {
+                                console.log(currentSubHeaderData)
+                                if (data.subType === 'block' && x === data.id) {
+                                    return (
+                                        <Col key={key}>
+                                            <p className='text-white pt-4 bg-success' >
+                                                {typeof dataToShow === 'string' &&  dataToShow }
+                                            </p>
+                                        </Col>
+                                    )
+                                } else if (data.subType === 'table' && x === data.id) {
+                                    return (
+                                        <>
+                                            {typeof dataToShow == 'object' && typeof dataToShow !== 'string' && dataToShow.map((col, idx) => {
+                                                return (
+                                                    <Col key={idx} className='text-white pt-4 bg-success'>
+                                                        <Row>{col.r1}</Row>
+                                                        <Row>{col.r2}</Row>
+                                                        <Row>{col.r3}</Row>
+                                                    </Col>
+                                                )
+                                            })}
+                                        </>
+                                    )
+                                }
+                            })}
 
-                            {(x === 1) ? (
+
+                            {/* {(x === 1) ? (
 
                                 <Col>
                                     <p className='text-white pt-4 bg-success' >
@@ -222,7 +258,7 @@ function Header() {
                                     </>
                                 )
 
-                            }
+                            } */}
 
 
 
